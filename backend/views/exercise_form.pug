@@ -1,0 +1,25 @@
+extends layout 
+
+block content 
+
+    h1=title 
+
+    form(action="", method="post") 
+        label(for="name") Name: 
+        input(type="text", name="name", value='')
+        br
+        label(for="sets") Sets: 
+        input(type="number", name="sets", value='')
+        br
+        label(for="reps") Reps: 
+        input(type="number", name="reps", value='')
+        br
+        label(for="calories") Calories Burned: 
+        input(type="number", name="calories", value='')
+        br
+        button(type="submit") Submit 
+
+    if errors 
+        ul 
+        for error in errors 
+            li!= error.msg
