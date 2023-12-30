@@ -1,10 +1,35 @@
 const User = require("../models/users")
 const asyncHandler = require("express-async-handler")
+const {body, validationResult} = require('express-validator')
 
 exports.user_form_get = asyncHandler(async(req,res,next) => {
-    res.send("User Form")
+    res.render("user_form",{
+        title:"Add User"
+    })
 })
 
-exports.user_form_post = asyncHandler(async(req,res,next) => {
-    res.send("User form")
-})
+exports.user_form_post = [
+    body("name").trim().isLength({min:1}).escape().withMessage("Name is required"),
+    body("weight").trim().isLength({min:2}).escape().withMessage("Weight should be in 2 digits and in numerical format"),
+    body("height").trim().isLength({max:3}).escape().withMessage("Enter the height in cms"),
+
+    asyncHandler(async(req,res,next) => {
+        const errors = validationResult(req)
+
+        const user = new User({
+            name:req.body.name,
+            weight:req.body.weight,
+            height:req.body.height
+        })
+        if(!errors.isEmpty()){
+            res.render("user_form",{
+                title:"Add User",
+                user:user,
+                errors:errors.array(),
+            })
+        } else {
+            await user.save()
+            res.redirect("/gym/exercise")
+        }
+    })
+]
