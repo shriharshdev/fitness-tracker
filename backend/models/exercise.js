@@ -9,4 +9,4 @@ const ExerciseSchema = new Schema({
     user:{type:Schema.Types.ObjectId, ref:"Users", required:true},
 })
 
-module.exports = mongoose.model("ExerciseSchema",Exercise)
+module.exports = mongoose.model("Exercise",ExerciseSchema)
