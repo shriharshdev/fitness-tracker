@@ -8,6 +8,7 @@ exports.exercise_form_get = asyncHandler(async(req,res,next) => {
     })
 })
 
+
 exports.exercise_form_post = [
     body("name").trim().isLength({min:1}).escape().withMessage("Name is required"),
     body("sets").trim().escape().isLength({min:1}).withMessage("Enter the number of sets"),
@@ -21,6 +22,7 @@ exports.exercise_form_post = [
             name:req.body.name,
             sets:req.body.sets,
             reps:req.body.reps,
+            //user:req.params.id,
             calories:req.body.calories,
         })
         if(!errors.isEmpty()){

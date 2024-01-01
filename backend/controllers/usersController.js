@@ -12,7 +12,6 @@ exports.user_list = asyncHandler(async(req,res,next) => {
 
 exports.user_details = asyncHandler(async(req,res,next) => {
     users = await User.findById(req.params.id).exec()
-    console.log(users)
     res.render("user_detail",{
         title:"User Details",
         users:users,
