@@ -8,4 +8,8 @@ const UsersSchema = new Schema({
     height: {type:Number, required:true},
 })
 
+UsersSchema.virtual("url").get(function (){
+    return `/gym/user/${this._id}`
+})
+
 module.exports = mongoose.model("Users", UsersSchema)
